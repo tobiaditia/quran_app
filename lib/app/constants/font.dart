@@ -20,3 +20,7 @@ TextStyle darkSecondaryNormalFont = GoogleFonts.poppins(
     color: darkSecondaryFontColor, fontWeight: FontWeight.normal);
 TextStyle darkSecondaryBoldFont =
     GoogleFonts.poppins(color: darkSecondaryColor, fontWeight: FontWeight.bold);
+TextStyle darkArabFont = GoogleFonts.amiri(
+    color: darkPrimaryFontColor, fontWeight: FontWeight.bold, fontSize: 18);
+TextStyle darkTrFont = GoogleFonts.poppins(
+    color: darkFourthFontColor, fontWeight: FontWeight.w300,fontSize: 16);

@@ -35,8 +35,8 @@ class DetailSurah {
   String deskripsi;
   String audio;
   List<Ayat> ayat;
-  SuratSelanjutnya suratSelanjutnya;
-  bool suratSebelumnya;
+  dynamic suratSelanjutnya;
+  dynamic suratSebelumnya;
 
   factory DetailSurah.fromJson(Map<String, dynamic> json) => DetailSurah(
         status: json["status"],
@@ -49,8 +49,8 @@ class DetailSurah {
         deskripsi: json["deskripsi"],
         audio: json["audio"],
         ayat: List<Ayat>.from(json["ayat"].map((x) => Ayat.fromJson(x))),
-        suratSelanjutnya: SuratSelanjutnya.fromJson(json["surat_selanjutnya"]),
-        suratSebelumnya: json["surat_sebelumnya"],
+        suratSelanjutnya: json["surat_selanjutnya"] == false ? false : SuratSenya.fromJson(json["surat_selanjutnya"]),
+        suratSebelumnya: json["surat_sebelumnya"] == false ? false : SuratSenya.fromJson(json["surat_sebelumnya"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,7 +65,7 @@ class DetailSurah {
         "audio": audio,
         "ayat": List<dynamic>.from(ayat.map((x) => x.toJson())),
         "surat_selanjutnya": suratSelanjutnya.toJson(),
-        "surat_sebelumnya": suratSebelumnya,
+        "surat_sebelumnya": suratSebelumnya.toJson(),
       };
 }
 
@@ -105,8 +105,8 @@ class Ayat {
       };
 }
 
-class SuratSelanjutnya {
-  SuratSelanjutnya({
+class SuratSenya {
+  SuratSenya({
     required this.id,
     required this.nomor,
     required this.nama,
@@ -128,8 +128,7 @@ class SuratSelanjutnya {
   String deskripsi;
   String audio;
 
-  factory SuratSelanjutnya.fromJson(Map<String, dynamic> json) =>
-      SuratSelanjutnya(
+  factory SuratSenya.fromJson(Map<String, dynamic> json) => SuratSenya(
         id: json["id"],
         nomor: json["nomor"],
         nama: json["nama"],

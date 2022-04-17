@@ -11,8 +11,6 @@ class HomeView extends GetView<HomeController> {
   RxList tests = ['e', 'r', 't'].obs;
   @override
   Widget build(BuildContext context) {
-    var tes = controller.fetchSurah();
-    print(tes);
     return Scaffold(
         body: SafeArea(
       child: Container(
@@ -144,7 +142,10 @@ class HomeView extends GetView<HomeController> {
                                 }
                                 return ListView(
                                   children: controller.surah.map((e) => GestureDetector(
-                                    onTap: () => Get.toNamed(Routes.SURAH),
+                                    onTap: () => Get.toNamed(Routes.SURAH,
+                                          arguments: {
+                                            "nomor": e.nomor,
+                                          }),
                                     child: Container(
                                         decoration: const BoxDecoration(
                                             border: Border(
