@@ -1,20 +1,34 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:quran_app/app/data/models/surah.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  List<Surah> surah = [];
+  RxBool isLoading = false.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  fetchSurah() async {
+    isLoading.value = true;
+    final response = await http.get(Uri.parse('https://equran.id/api/surat'));
+
+    if (response.statusCode == 200) {
+      surah = Surah.fromJsonList(jsonDecode(response.body));
+    } else {
+      Get.defaultDialog(
+          title: "Terjadi kesalahan", middleText: "Failed to load surah");
+    }
+    isLoading.value = false;
+    update();
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    fetchSurah();
   }
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

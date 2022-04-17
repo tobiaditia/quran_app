@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/app/constants/color.dart';
 import 'package:quran_app/app/constants/font.dart';
+import 'package:quran_app/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -10,6 +11,8 @@ class HomeView extends GetView<HomeController> {
   RxList tests = ['e', 'r', 't'].obs;
   @override
   Widget build(BuildContext context) {
+    var tes = controller.fetchSurah();
+    print(tes);
     return Scaffold(
         body: SafeArea(
       child: Container(
@@ -134,15 +137,59 @@ class HomeView extends GetView<HomeController> {
                     Expanded(
                       child: TabBarView(
                         children: <Widget>[
-                          ListView(
-                            children: [
-                              builderCont(),
-                              builderCont(),
-                              builderCont(),
-                              builderCont(),
-                              builderCont(),
-                            ],
-                          ),
+                          GetBuilder<HomeController>(
+                              builder: (controller) {
+                                if (controller.isLoading.value) {
+                                  return const CircularProgressIndicator();
+                                }
+                                return ListView(
+                                  children: controller.surah.map((e) => GestureDetector(
+                                    onTap: () => Get.toNamed(Routes.SURAH),
+                                    child: Container(
+                                        decoration: const BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: Color(0xff7B80AD)))),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16),
+                                        child: Row(
+                                          children: [
+                                            Text("${e.nomor}"),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  e.namaLatin,
+                                                  style: darkSemiBoldFont
+                                                      .copyWith(fontSize: 14),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  "${e.tempatTurun} ${e.jumlahAyat} VERSES",
+                                                  style: darkSecondaryNormalFont
+                                                      .copyWith(fontSize: 12),
+                                                )
+                                              ],
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              e.nama,
+                                              style: darkSecondaryBoldFont
+                                                  .copyWith(fontSize: 20),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                  ),
+                                  ).toList(),
+                                );
+                              }),
                           ListView(
                             children: [
                               builderCont(),
