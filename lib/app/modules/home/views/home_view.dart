@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/app/constants/color.dart';
 import 'package:quran_app/app/constants/font.dart';
+import 'package:quran_app/app/data/widgets/shimmer.dart';
 import 'package:quran_app/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -135,18 +136,24 @@ class HomeView extends GetView<HomeController> {
                     Expanded(
                       child: TabBarView(
                         children: <Widget>[
-                          GetBuilder<HomeController>(
-                              builder: (controller) {
-                                if (controller.isLoading.value) {
-                                  return const CircularProgressIndicator();
-                                }
-                                return ListView(
-                                  children: controller.surah.map((e) => GestureDetector(
-                                    onTap: () => Get.toNamed(Routes.SURAH,
-                                          arguments: {
-                                            "nomor": e.nomor,
-                                          }),
-                                    child: Container(
+                          GetBuilder<HomeController>(builder: (controller) {
+                            if (controller.isLoading.value) {
+                              return ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) => Container(
+                                      margin:
+                                          const EdgeInsets.symmetric(vertical: 16),
+                                      child: builderShimmer(16)));
+                            }
+                            return ListView(
+                              children: controller.surah
+                                  .map(
+                                    (e) => GestureDetector(
+                                      onTap: () =>
+                                          Get.toNamed(Routes.SURAH, arguments: {
+                                        "nomor": e.nomor,
+                                      }),
+                                      child: Container(
                                         decoration: const BoxDecoration(
                                             border: Border(
                                                 bottom: BorderSide(
@@ -187,10 +194,11 @@ class HomeView extends GetView<HomeController> {
                                           ],
                                         ),
                                       ),
-                                  ),
-                                  ).toList(),
-                                );
-                              }),
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          }),
                           ListView(
                             children: [
                               builderCont(),

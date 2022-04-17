@@ -12,6 +12,7 @@ dependencies:
   http: 0.13.4
   shimmer: ^2.0.0
   flutter_shimmer: 2.1.2
+  audioplayers: 0.20.1
   flutter: 
     sdk: flutter
 

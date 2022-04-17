@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/app/constants/color.dart';
 import 'package:quran_app/app/constants/font.dart';
+import 'package:quran_app/app/data/widgets/shimmer.dart';
 import 'package:quran_app/app/modules/home/views/home_view.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../controllers/surah_controller.dart';
 
@@ -21,7 +21,10 @@ class SurahView extends GetView<SurahController> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Get.off(HomeView()),
+                    onTap: () {
+                      controller.stopSound();
+                      Get.off(HomeView());
+                    },
                     child: const Icon(
                       Icons.arrow_back_rounded,
                       size: 24,
@@ -31,18 +34,28 @@ class SurahView extends GetView<SurahController> {
                     width: 24,
                   ),
                   GetBuilder<SurahController>(
-                      builder: (e) => Text(
-                            e.surah == null ? '----' : e.surah!.namaLatin,
-                            style: darkLabelFont,
-                          )),
+                      builder: (e) => e.surah == null
+                          ? Expanded(child: builderShimmer(16))
+                          : Text(
+                              e.surah!.namaLatin,
+                              style: darkLabelFont,
+                            )),
                   const Spacer(),
-                  const Icon(Icons.search)
+                  // GetBuilder<SurahController>(
+                  //     builder: (e) => e.surah == null
+                  //         ? Expanded(child: builderShimmer(16))
+                  //         : GestureDetector(
+                  //             onTap: () {
+                  //               audio.play(e.surah!.audio);
+                  //             },
+                  //             child: const Icon(Icons.play_arrow))),
                 ],
               ),
               const SizedBox(
                 height: 24,
               ),
               GetBuilder<SurahController>(builder: (e) {
+                print(e.isPlay.value);
                 return Column(
                   children: [
                     Container(
@@ -83,11 +96,18 @@ class SurahView extends GetView<SurahController> {
                                   style: darkNormalFont.copyWith(fontSize: 26),
                                 ),
                                 const SizedBox(
-                                  height: 4,
+                                  height: 2,
                                 ),
                                 Text(
                                   e.surah!.arti,
                                   style: darkNormalFont.copyWith(fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "${e.surah!.tempatTurun} ${e.surah!.jumlahAyat} ayat",
+                                  style: darkNormalFont.copyWith(fontSize: 14),
                                 ),
                                 const SizedBox(
                                   height: 16,
@@ -99,10 +119,93 @@ class SurahView extends GetView<SurahController> {
                                 const SizedBox(
                                   height: 16,
                                 ),
-                                Text(
-                                  "${e.surah!.tempatTurun} ${e.surah!.jumlahAyat} ayat",
-                                  style: darkNormalFont.copyWith(fontSize: 14),
-                                ),
+                                Obx(
+                                  () => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                          iconSize: 30,
+                                          onPressed: () {},
+                                          icon: Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: darkPrimaryFontColor),
+                                            child: Icon(
+                                              Icons.skip_previous,
+                                              color: darkSecondaryColor,
+                                            ),
+                                          )),
+                                      e.isPlay.isTrue
+                                          ? Row(
+                                              children: [
+                                                IconButton(
+                                                    iconSize: 30,
+                                                    onPressed: () {
+                                                      controller.pauseSound();
+                                                    },
+                                                    icon: Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              darkPrimaryFontColor),
+                                                      child: Icon(
+                                                        Icons.pause,
+                                                        color:
+                                                            darkSecondaryColor,
+                                                      ),
+                                                    )),
+                                                IconButton(
+                                                    iconSize: 30,
+                                                    onPressed: () {
+                                                      controller.stopSound();
+                                                    },
+                                                    icon: Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              darkPrimaryFontColor),
+                                                      child: Icon(
+                                                        Icons.stop,
+                                                        color:
+                                                            darkSecondaryColor,
+                                                      ),
+                                                    )),
+                                              ],
+                                            )
+                                          : IconButton(
+                                              iconSize: 50,
+                                              onPressed: () {
+                                                controller
+                                                    .playSound(e.surah!.audio);
+                                              },
+                                              icon: Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        darkPrimaryFontColor),
+                                                child: Icon(
+                                                  Icons.play_arrow,
+                                                  color: darkSecondaryColor,
+                                                ),
+                                              )),
+                                      IconButton(
+                                          iconSize: 30,
+                                          onPressed: () {},
+                                          icon: Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: darkPrimaryFontColor),
+                                            child: Icon(
+                                              Icons.skip_next,
+                                              color: darkSecondaryColor,
+                                            ),
+                                          )),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                     ),
@@ -110,7 +213,7 @@ class SurahView extends GetView<SurahController> {
                       height: 32,
                     ),
                     e.isLoading.value
-                        ? const Text('wait')
+                        ? builderShimmer(16)
                         : SizedBox(
                             height: Get.height - (390),
                             child: ListView(
@@ -202,7 +305,9 @@ class SurahView extends GetView<SurahController> {
                                               color: Color.fromRGBO(
                                                   255, 255, 255, .2),
                                             ),
-                                            const SizedBox(height: 24,)
+                                            const SizedBox(
+                                              height: 24,
+                                            )
                                           ],
                                         ))
                                     .toList()),
@@ -259,17 +364,5 @@ class SurahView extends GetView<SurahController> {
         ],
       ),
     );
-  }
-
-  Shimmer builderShimmer(double height) {
-    return Shimmer.fromColors(
-        baseColor: Colors.grey,
-        highlightColor: Colors.white30,
-        child: Container(
-          height: height,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
-        ));
   }
 }
