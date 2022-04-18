@@ -13,6 +13,7 @@ class SurahController extends GetxController {
 
   fetchSurah(int nomor) async {
     isLoading.value = true;
+    print(isLoading);
     final response =
         await http.get(Uri.parse('https://equran.id/api/surat/$nomor'));
 
@@ -25,6 +26,18 @@ class SurahController extends GetxController {
     isLoading.value = false;
     isPlay.value = false;
     update();
+  }
+
+  void prev(int nomor){
+    isLoading.value = true;
+    stopSound();
+    fetchSurah(nomor);
+  }
+
+  void next(int nomor) {
+    isLoading.value = true;
+    stopSound();
+    fetchSurah(nomor);
   }
 
   void playSound(String url) async {
