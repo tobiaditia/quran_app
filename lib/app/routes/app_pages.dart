@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/schedule/bindings/schedule_binding.dart';
+import '../modules/schedule/views/schedule_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/surah/bindings/surah_binding.dart';
@@ -16,19 +18,28 @@ class AppPages {
 
   static final routes = [
     GetPage(
+      transition: Transition.fadeIn,
       name: _Paths.HOME,
       page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
+      transition: Transition.fadeIn,
       name: _Paths.SPLASH,
       page: () => SplashView(),
       binding: SplashBinding(),
     ),
     GetPage(
+      transition: Transition.fadeIn,
       name: _Paths.SURAH,
       page: () => SurahView(),
       binding: SurahBinding(),
+    ),
+    GetPage(
+      transition: Transition.fadeIn,
+      name: _Paths.SCHEDULE,
+      page: () => ScheduleView(),
+      binding: ScheduleBinding(),
     ),
   ];
 }

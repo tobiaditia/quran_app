@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/app/constants/color.dart';
 import 'package:quran_app/app/constants/font.dart';
+import 'package:quran_app/app/data/widgets/bottomNavigationBar.dart';
 import 'package:quran_app/app/data/widgets/shimmer.dart';
 import 'package:quran_app/app/routes/app_pages.dart';
 
@@ -218,7 +219,7 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
-    ));
+    ),bottomNavigationBar: convexAppBar(),);
   }
 
   Container builderCont() {
