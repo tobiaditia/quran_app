@@ -8,6 +8,7 @@ abstract class Routes {
   static const SURAH = _Paths.SURAH;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const SCHEDULE = _Paths.SCHEDULE;
+  static const QIBLAH = _Paths.QIBLAH;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const SURAH = '/surah';
   static const DASHBOARD = '/dashboard';
   static const SCHEDULE = '/schedule';
+  static const QIBLAH = '/qiblah';
 }

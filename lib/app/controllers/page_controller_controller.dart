@@ -12,7 +12,7 @@ class PageControllerController extends GetxController {
         break;
       case 1:
         index.value = i;
-        Get.offAllNamed(Routes.SCHEDULE);
+        Get.offAllNamed(Routes.QIBLAH);
         break;
       case 2:
         index.value = i;

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/qiblah/bindings/qiblah_binding.dart';
+import '../modules/qiblah/views/qiblah_view.dart';
 import '../modules/schedule/bindings/schedule_binding.dart';
 import '../modules/schedule/views/schedule_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -40,6 +42,12 @@ class AppPages {
       name: _Paths.SCHEDULE,
       page: () => ScheduleView(),
       binding: ScheduleBinding(),
+    ),
+    GetPage(
+      transition: Transition.fadeIn,
+      name: _Paths.QIBLAH,
+      page: () => QiblahView(),
+      binding: QiblahBinding(),
     ),
   ];
 }
