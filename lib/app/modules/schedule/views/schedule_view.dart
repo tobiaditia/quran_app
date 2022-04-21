@@ -5,6 +5,7 @@ import 'package:quran_app/app/constants/color.dart';
 import 'package:quran_app/app/constants/font.dart';
 import 'package:quran_app/app/data/widgets/bottomNavigationBar.dart';
 import 'package:intl/intl.dart';
+import 'package:quran_app/app/data/widgets/shimmer.dart';
 
 import '../controllers/schedule_controller.dart';
 
@@ -112,27 +113,187 @@ class ScheduleView extends GetView<ScheduleController> {
               const SizedBox(
                 height: 24,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                decoration: BoxDecoration(
-                    color: const Color(0xff152451),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Subuh',
-                      textAlign: TextAlign.center,
-                      style: darkNormalFont.copyWith(fontSize: 14),
-                    ),
-                    Text(
-                      '04.00',
-                      textAlign: TextAlign.center,
-                      style: darkSemiBoldFont.copyWith(fontSize: 14),
-                    )
-                  ],
-                ),
+              Expanded(
+                child: GetBuilder<ScheduleController>(builder: (e) {
+                  return Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Imsak',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.imsak,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Subuh',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.subuh,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Dzuhur',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.dzuhur,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Ashar',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.ashar,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Maghrib',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.maghrib,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xff152451),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Isya',
+                              textAlign: TextAlign.center,
+                              style: darkNormalFont.copyWith(fontSize: 14),
+                            ),
+                            controller.isLoading.isTrue
+                                ? SizedBox(width: 30, child: builderShimmer(16))
+                                : Text(
+                                    e.schedule!.jadwal.data.isya,
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        darkSemiBoldFont.copyWith(fontSize: 14),
+                                  )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  );
+                }),
               )
             ],
           ),

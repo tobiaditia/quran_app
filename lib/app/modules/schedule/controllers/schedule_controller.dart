@@ -1,10 +1,30 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:quran_app/app/data/models/schedule.dart';
 
 class ScheduleController extends GetxController {
   var selectedDate = DateTime.now().obs;
+  RxBool isLoading = false.obs;
+  Schedule? schedule;
 
-
+  fetchSchedule(String? date) async {
+    isLoading.value = true;
+    date = date ?? DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
+    final response = await http.get(Uri.parse(
+        'https://api.banghasan.com/sholat/format/json/jadwal/kota/768/tanggal/$date'));
+    if (response.statusCode == 200) {
+      schedule = Schedule.fromJson(jsonDecode(response.body));
+    } else {
+      Get.defaultDialog(
+          title: "Terjadi kesalahan", middleText: "Failed to load surah");
+    }
+    isLoading.value = false;
+    update();
+  }
 
   @override
   void onClose() {}
@@ -27,7 +47,10 @@ class ScheduleController extends GetxController {
         selectableDayPredicate: disableDate);
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
+      fetchSchedule(
+          DateFormat("yyyy-MM-dd").format(selectedDate.value).toString());
     }
+    update();
   }
 
   bool disableDate(DateTime day) {
@@ -36,5 +59,11 @@ class ScheduleController extends GetxController {
       return true;
     }
     return false;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchSchedule(null);
   }
 }
