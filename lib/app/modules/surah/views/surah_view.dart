@@ -36,7 +36,7 @@ class SurahView extends GetView<SurahController> {
                   Obx(() => controller.isLoading.isTrue
                       ? Expanded(child: builderShimmer(16))
                       : Text(
-                          controller.surah!.namaLatin,
+                          controller.surah!.name.transliteration.id,
                           style: darkLabelFont,
                         )),
                   const Spacer(),
@@ -91,7 +91,7 @@ class SurahView extends GetView<SurahController> {
                             : Column(
                                 children: [
                                   Text(
-                                    e.surah!.namaLatin,
+                                    e.surah!.name.transliteration.id,
                                     style:
                                         darkNormalFont.copyWith(fontSize: 26),
                                   ),
@@ -99,7 +99,7 @@ class SurahView extends GetView<SurahController> {
                                     height: 2,
                                   ),
                                   Text(
-                                    e.surah!.arti,
+                                    e.surah!.name.translation.id,
                                     style:
                                         darkNormalFont.copyWith(fontSize: 16),
                                   ),
@@ -107,7 +107,7 @@ class SurahView extends GetView<SurahController> {
                                     height: 2,
                                   ),
                                   Text(
-                                    "${e.surah!.tempatTurun} ${e.surah!.jumlahAyat} ayat",
+                                    "${e.surah!.revelation.id} ${e.surah!.numberOfVerses} ayat",
                                     style:
                                         darkNormalFont.copyWith(fontSize: 14),
                                   ),
@@ -121,111 +121,111 @@ class SurahView extends GetView<SurahController> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  Obx(
-                                    () => Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconButton(
-                                            iconSize: 30,
-                                            onPressed: e.surah!
-                                                        .suratSebelumnya ==
-                                                    false
-                                                ? null
-                                                : () => controller
-                                                    .prev(e.surah!.nomor - 1),
-                                            icon: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: e.surah!
-                                                              .suratSebelumnya ==
-                                                          false
-                                                      ? Colors.grey
-                                                      : darkPrimaryFontColor),
-                                              child: Icon(
-                                                Icons.skip_previous,
-                                                color: darkSecondaryColor,
-                                              ),
-                                            )),
-                                        e.isPlay.isTrue
-                                            ? Row(
-                                                children: [
-                                                  IconButton(
-                                                      iconSize: 30,
-                                                      onPressed: () {
-                                                        controller.pauseSound();
-                                                      },
-                                                      icon: Container(
-                                                        decoration: BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color:
-                                                                darkPrimaryFontColor),
-                                                        child: Icon(
-                                                          Icons.pause,
-                                                          color:
-                                                              darkSecondaryColor,
-                                                        ),
-                                                      )),
-                                                  IconButton(
-                                                      iconSize: 30,
-                                                      onPressed: () {
-                                                        controller.stopSound();
-                                                      },
-                                                      icon: Container(
-                                                        decoration: BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color:
-                                                                darkPrimaryFontColor),
-                                                        child: Icon(
-                                                          Icons.stop,
-                                                          color:
-                                                              darkSecondaryColor,
-                                                        ),
-                                                      )),
-                                                ],
-                                              )
-                                            : IconButton(
-                                                iconSize: 50,
-                                                onPressed: () {
-                                                  controller.playSound(
-                                                      e.surah!.audio);
-                                                },
-                                                icon: Container(
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color:
-                                                          darkPrimaryFontColor),
-                                                  child: Icon(
-                                                    Icons.play_arrow,
-                                                    color: darkSecondaryColor,
-                                                  ),
-                                                )),
-                                        IconButton(
-                                            iconSize: 30,
-                                            onPressed: e.surah!
-                                                        .suratSelanjutnya ==
-                                                    false
-                                                ? null
-                                                : () => controller
-                                                    .next(e.surah!.nomor + 1),
-                                            icon: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: e.surah!
-                                                              .suratSelanjutnya ==
-                                                          false
-                                                      ? Colors.grey
-                                                      : darkPrimaryFontColor),
-                                              child: Icon(
-                                                Icons.skip_next,
-                                                color: darkSecondaryColor,
-                                              ),
-                                            )),
-                                      ],
-                                    ),
-                                  )
+                                  // Obx(
+                                  //   () => Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       IconButton(
+                                  //           iconSize: 30,
+                                  //           onPressed: e.surah!
+                                  //                       .number ==
+                                  //                   1
+                                  //               ? null
+                                  //               : () => controller
+                                  //                   .prev(e.surah!.number - 1),
+                                  //           icon: Container(
+                                  //             decoration: BoxDecoration(
+                                  //                 shape: BoxShape.circle,
+                                  //                 color: e.surah!
+                                  //                             .number ==
+                                  //                         1
+                                  //                     ? Colors.grey
+                                  //                     : darkPrimaryFontColor),
+                                  //             child: Icon(
+                                  //               Icons.skip_previous,
+                                  //               color: darkSecondaryColor,
+                                  //             ),
+                                  //           )),
+                                  //       e.isPlay.isTrue
+                                  //           ? Row(
+                                  //               children: [
+                                  //                 IconButton(
+                                  //                     iconSize: 30,
+                                  //                     onPressed: () {
+                                  //                       controller.pauseSound();
+                                  //                     },
+                                  //                     icon: Container(
+                                  //                       decoration: BoxDecoration(
+                                  //                           shape:
+                                  //                               BoxShape.circle,
+                                  //                           color:
+                                  //                               darkPrimaryFontColor),
+                                  //                       child: Icon(
+                                  //                         Icons.pause,
+                                  //                         color:
+                                  //                             darkSecondaryColor,
+                                  //                       ),
+                                  //                     )),
+                                  //                 IconButton(
+                                  //                     iconSize: 30,
+                                  //                     onPressed: () {
+                                  //                       controller.stopSound();
+                                  //                     },
+                                  //                     icon: Container(
+                                  //                       decoration: BoxDecoration(
+                                  //                           shape:
+                                  //                               BoxShape.circle,
+                                  //                           color:
+                                  //                               darkPrimaryFontColor),
+                                  //                       child: Icon(
+                                  //                         Icons.stop,
+                                  //                         color:
+                                  //                             darkSecondaryColor,
+                                  //                       ),
+                                  //                     )),
+                                  //               ],
+                                  //             )
+                                  //           : IconButton(
+                                  //               iconSize: 50,
+                                  //               onPressed: () {
+                                  //                 controller.playSound(
+                                  //                     e.surah!.audio);
+                                  //               },
+                                  //               icon: Container(
+                                  //                 decoration: BoxDecoration(
+                                  //                     shape: BoxShape.circle,
+                                  //                     color:
+                                  //                         darkPrimaryFontColor),
+                                  //                 child: Icon(
+                                  //                   Icons.play_arrow,
+                                  //                   color: darkSecondaryColor,
+                                  //                 ),
+                                  //               )),
+                                  //       IconButton(
+                                  //           iconSize: 30,
+                                  //           onPressed: e.surah!
+                                  //                       .suratSelanjutnya ==
+                                  //                   false
+                                  //               ? null
+                                  //               : () => controller
+                                  //                   .next(e.surah!.nomor + 1),
+                                  //           icon: Container(
+                                  //             decoration: BoxDecoration(
+                                  //                 shape: BoxShape.circle,
+                                  //                 color: e.surah!
+                                  //                             .suratSelanjutnya ==
+                                  //                         false
+                                  //                     ? Colors.grey
+                                  //                     : darkPrimaryFontColor),
+                                  //             child: Icon(
+                                  //               Icons.skip_next,
+                                  //               color: darkSecondaryColor,
+                                  //             ),
+                                  //           )),
+                                  //     ],
+                                  //   ),
+                                  // )
                                 ],
                               ),
                       ),
@@ -239,7 +239,7 @@ class SurahView extends GetView<SurahController> {
                           : SizedBox(
                               height: Get.height - (390),
                               child: ListView(
-                                  children: e.surah!.ayat
+                                  children: e.surah!.verses
                                       .map((ee) => Column(
                                             children: [
                                               Container(
@@ -269,7 +269,7 @@ class SurahView extends GetView<SurahController> {
                                                             color:
                                                                 darkSecondaryColor),
                                                         child: Text(
-                                                          '${ee.nomor}',
+                                                          '${ee.number.inSurah}',
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: darkNormalFont
@@ -283,6 +283,23 @@ class SurahView extends GetView<SurahController> {
                                                           color:
                                                               darkSecondaryColor,
                                                           size: 24,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 16,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () =>
+                                                              controller
+                                                                  .playSound(ee
+                                                                      .audio
+                                                                      .primary),
+                                                          child: Icon(
+                                                            Icons
+                                                                .play_circle_outline_outlined,
+                                                            color:
+                                                                darkSecondaryColor,
+                                                            size: 24,
+                                                          ),
                                                         ),
                                                         const SizedBox(
                                                           width: 16,
@@ -306,7 +323,7 @@ class SurahView extends GetView<SurahController> {
                                                 alignment:
                                                     Alignment.centerRight,
                                                 child: Text(
-                                                  ee.ar,
+                                                  ee.text.arab,
                                                   style: darkArabFont,
                                                   textAlign: TextAlign.right,
                                                 ),
@@ -317,7 +334,7 @@ class SurahView extends GetView<SurahController> {
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  ee.idn,
+                                                  ee.translation.id,
                                                   style: darkTrFont,
                                                 ),
                                               ),
@@ -352,42 +369,5 @@ class SurahView extends GetView<SurahController> {
         ),
       ),
     ));
-  }
-
-  Container builderCont() {
-    return Container(
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Color(0xff7B80AD)))),
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        children: [
-          const Text("1"),
-          const SizedBox(
-            width: 16,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Al-Fatihah",
-                style: darkSemiBoldFont.copyWith(fontSize: 14),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                "MECCAN 7 VERSES",
-                style: darkSecondaryNormalFont.copyWith(fontSize: 12),
-              )
-            ],
-          ),
-          const Spacer(),
-          Text(
-            "الْفَاتِحَة",
-            style: darkSecondaryBoldFont.copyWith(fontSize: 20),
-          )
-        ],
-      ),
-    );
   }
 }

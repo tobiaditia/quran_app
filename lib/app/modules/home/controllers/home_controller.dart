@@ -10,10 +10,11 @@ class HomeController extends GetxController {
 
   fetchSurah() async {
     isLoading.value = true;
-    final response = await http.get(Uri.parse('https://equran.id/api/surat'));
+    final response =
+        await http.get(Uri.parse('https://api.quran.sutanlab.id/surah'));
 
     if (response.statusCode == 200) {
-      surah = Surah.fromJsonList(jsonDecode(response.body));
+      surah = Surah.fromJsonList(jsonDecode(response.body)["data"]);
     } else {
       Get.defaultDialog(
           title: "Terjadi kesalahan", middleText: "Failed to load surah");

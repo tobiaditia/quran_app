@@ -152,7 +152,7 @@ class HomeView extends GetView<HomeController> {
                                     (e) => GestureDetector(
                                       onTap: () =>
                                           Get.toNamed(Routes.SURAH, arguments: {
-                                        "nomor": e.nomor,
+                                        "nomor": e.number,
                                       }),
                                       child: Container(
                                         decoration: const BoxDecoration(
@@ -163,34 +163,36 @@ class HomeView extends GetView<HomeController> {
                                             vertical: 16),
                                         child: Row(
                                           children: [
-                                            Text("${e.nomor}"),
+                                            Text("${e.number}"),
                                             const SizedBox(
                                               width: 16,
                                             ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  e.namaLatin,
-                                                  style: darkSemiBoldFont
-                                                      .copyWith(fontSize: 14),
-                                                ),
-                                                const SizedBox(
-                                                  height: 4,
-                                                ),
-                                                Text(
-                                                  "${e.tempatTurun} ${e.jumlahAyat} VERSES",
-                                                  style: darkSecondaryNormalFont
-                                                      .copyWith(fontSize: 12),
-                                                )
-                                              ],
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    e.name.transliteration.id,
+                                                    style: darkSemiBoldFont
+                                                        .copyWith(fontSize: 14),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Text(
+                                                    "${e.revelation.id} ${e.numberOfVerses} ayat",
+                                                    style: darkSecondaryNormalFont
+                                                        .copyWith(fontSize: 12),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                            const Spacer(),
                                             Text(
-                                              e.nama,
+                                              e.name.short,
                                               style: darkSecondaryBoldFont
                                                   .copyWith(fontSize: 20),
+                                                  textAlign: TextAlign.right,
                                             )
                                           ],
                                         ),

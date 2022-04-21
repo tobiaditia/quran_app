@@ -8,17 +8,16 @@ import 'package:quran_app/app/data/models/surah_detail.dart';
 class SurahController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isPlay = false.obs;
-  DetailSurah? surah;
+  SurahDetail? surah;
   var audio = AudioPlayer();
 
   fetchSurah(int nomor) async {
     isLoading.value = true;
-    print(isLoading);
     final response =
-        await http.get(Uri.parse('https://equran.id/api/surat/$nomor'));
+        await http.get(Uri.parse('https://api.quran.sutanlab.id/surah/$nomor'));
 
     if (response.statusCode == 200) {
-      surah = DetailSurah.fromJson(jsonDecode(response.body));
+      surah = SurahDetail.fromJson(jsonDecode(response.body)["data"]);
     } else {
       Get.defaultDialog(
           title: "Terjadi kesalahan", middleText: "Failed to load surah");
@@ -28,7 +27,7 @@ class SurahController extends GetxController {
     update();
   }
 
-  void prev(int nomor){
+  void prev(int nomor) {
     isLoading.value = true;
     stopSound();
     fetchSurah(nomor);
@@ -73,5 +72,6 @@ class SurahController extends GetxController {
   @override
   void onClose() {
     surah = null;
+    stopSound();
   }
 }
