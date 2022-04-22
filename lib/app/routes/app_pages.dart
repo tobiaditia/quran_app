@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/juz/bindings/juz_binding.dart';
+import '../modules/juz/views/juz_view.dart';
 import '../modules/qiblah/bindings/qiblah_binding.dart';
 import '../modules/qiblah/views/qiblah_view.dart';
 import '../modules/schedule/bindings/schedule_binding.dart';
@@ -48,6 +50,11 @@ class AppPages {
       name: _Paths.QIBLAH,
       page: () => QiblahView(),
       binding: QiblahBinding(),
+    ),
+    GetPage(
+      name: _Paths.JUZ,
+      page: () => JuzView(),
+      binding: JuzBinding(),
     ),
   ];
 }

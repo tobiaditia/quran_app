@@ -9,6 +9,7 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const SCHEDULE = _Paths.SCHEDULE;
   static const QIBLAH = _Paths.QIBLAH;
+  static const JUZ = _Paths.JUZ;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const DASHBOARD = '/dashboard';
   static const SCHEDULE = '/schedule';
   static const QIBLAH = '/qiblah';
+  static const JUZ = '/juz';
 }
